@@ -1,7 +1,5 @@
 <template>
-    <nav
-      class="hidden md:block lg:block xl:block flex items-center justify-between flex-wrap container mx-auto py-3 z-20 dark:text-gray-400"
-    >
+    <nav class="hidden md:block lg:block xl:block flex items-center justify-between flex-wrap container mx-auto py-3 z-20 dark:text-gray-400">
       <div class="block flex-grow flex items-center w-auto mx-4">
         <div class="flex items-center flex-shrink-0 mr-6">
           <span class="font-semibold text-xl tracking-tight">{{ $static.metadata.siteName }}</span>
@@ -9,25 +7,10 @@
         <div class="flex-grow">
           <ul class="list-none flex justify-left">
             <li v-for="navItem in $static.metadata.headerNavigation" :key="navItem.name" class="px-4 py-1">
-              <g-link
-                class="block py-1"
-                :to="navItem.link"
-                :title="navItem.name"
-                v-if="navItem.external!=true && navItem.children.length <=0"
-              >{{ navItem.name}}</g-link>
-              <a
-                class="block"
-                :href="navItem.link"
-                target="_blank"
-                :title="navItem.name"
-                v-if="navItem.external==true && navItem.children.length <=0"
-              >{{ navItem.name}}</a>
+              <g-link class="block py-1" :to="navItem.link" :title="navItem.name" v-if="navItem.external!==true && navItem.children.length <=0">{{ navItem.name}}</g-link>
+              <a class="block" :href="navItem.link" target="_blank" :title="navItem.name" v-if="navItem.external===true && navItem.children.length <=0">{{ navItem.name}}</a>
               <ClientOnly>
-              <v-popover 
-                placement="top" 
-                popoverClass="navbar-popover" 
-                offset="16" 
-                v-if="navItem.children.length > 0">
+              <v-popover placement="top" popoverClass="navbar-popover" offset="16" v-if="navItem.children.length > 0">
                 <a class="block py-1" style="cursor:pointer;">
                   {{ navItem.name }}
                   <font-awesome :icon="['fas', 'angle-down']"></font-awesome>
@@ -36,31 +19,17 @@
                 <template slot="popover">
                   <ul>
                     <li v-for="subItem in navItem.children" :key="subItem.name" class="px-4 py-2 submenu-item hover:text-white">
-                      <g-link
-                        class="block"
-                        :to="subItem.link"
-                        :title="subItem.name"
-                        v-if="subItem.external!=true"
-                      >{{ subItem.name}}</g-link>
-                      <a
-                        class="block"
-                        :href="subItem.link"
-                        target="_blank"
-                        :title="subItem.name"
-                        v-if="subItem.external==true"
-                      >{{ subItem.name}}</a>
+                      <g-link class="block" :to="subItem.link" :title="subItem.name" v-if="subItem.external!==true">{{ subItem.name }}</g-link>
+                      <a class="block" :href="subItem.link" target="_blank" :title="subItem.name" v-if="subItem.external===true">{{ subItem.name }}</a>
                     </li>
                   </ul>
                 </template>
               </v-popover>
               </ClientOnly>
             </li>
+
             <li class="px-4 py-1">
-              <a role="button" 
-                @click.prevent="toggleSubNavigation()" 
-                class="block px-4 py-1" 
-                aria-label="Open Subnavigation"
-                title="Open Subnavigation" 
+              <a role="button" @click.prevent="toggleSubNavigation()" class="block px-4 py-1" aria-label="Open Subnavigation" title="Open Subnavigation"
                 v-bind:class="{
                   'text-blue-600' : showSubNavigation,
                   '' : !showSubNavigation
@@ -68,18 +37,16 @@
                <font-awesome :icon="['fas', 'ellipsis-h']" size="lg"></font-awesome>
               </a>
 
-              <div v-click-outside="onClickOutside"
-                class="py-4 mega-menu mb-16 border-t border-gray-200 shadow-xl bg-white dark:bg-black dark:border-gray-900" 
+              <div v-click-outside="onClickOutside" class="py-4 mega-menu mb-16 border-t border-gray-200 shadow-xl bg-white dark:bg-black dark:border-gray-900"
                 v-bind:class="{
                   '' : showSubNavigation,
                   'hidden' : !showSubNavigation
-              }">
-
+                }">
                 <div>
+
                 <subnavigation/>
                 </div>
               </div>
-               
             </li>
           </ul>
         </div>
@@ -99,20 +66,41 @@
 </template>
 
 <script>
-import ThemeSwitcher from "~/components/Navbar/ThemeSwitcher.vue";
-import SearchButton from "~/components/Navbar/SearchButton.vue";
-import Subnavigation from "~/components/Navbar/NavbarSubNavigation.vue";
+import ThemeSwitcher from '@/components/Navbar/ThemeSwitcher'
+import SearchButton from '@/components/Navbar/SearchButton'
+import Subnavigation from '@/components/Navbar/NavbarSubNavigation'
+
+let toggleSubNavigation = function() {
+  this.showSubNavigation = !this.showSubNavigation;
+}
+
+let onClickOutside = function(event) {
+  if (!event.defaultPrevented && this.showSubNavigation === true)
+    this.toggleSubNavigation()
+}
+
+let hideSubNavigation = function() {
+  this.showSubNavigation = false
+}
+
+let watchHideSubnav = function() {
+  if( this.hideSubnav ) {
+    this.hideSubNavigation()
+  }
+}
+
+let watchRoute = function(){
+  this.hideSubNavigation()
+}
 
 export default {
-  data: function() {
-    return {
-      showSubNavigation: false,
-      vcoConfig: {
-        events: ["dblclick", "click"],
-        isActive: true
-      }
-    };
-  },
+  data: () => ({
+    showSubNavigation: false,
+    vcoConfig: {
+      events: ["dblclick", "click"],
+      isActive: true
+    }
+  }),
   components: {
     ThemeSwitcher,
     SearchButton,
@@ -127,30 +115,15 @@ export default {
     }
   },
   methods: {
-    toggleSubNavigation() {
-      this.showSubNavigation = !this.showSubNavigation;
-    },
-    onClickOutside(event) {
-      if (!event.defaultPrevented && this.showSubNavigation == true) {
-        this.toggleSubNavigation();
-      }
-    },
-    hideSubNavigation() {
-      this.showSubNavigation = false;
-    }
+    toggleSubNavigation,
+    onClickOutside,
+    hideSubNavigation
   },
   watch: {
-    hideSubnav() {
-      if( this.hideSubnav ) {
-        this.hideSubNavigation()
-      }
-    },
-    $route (to, from){
-      this.hideSubNavigation();
-    }
+    hideSubnav: watchHideSubnav,
+    $route: watchRoute
   },
-  
-};
+}
 </script>
 
 <static-query>
