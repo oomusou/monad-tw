@@ -41,22 +41,19 @@
 
 <script>
 let authors = function() {
-  let tooltipText = [];
+  let tooltipText = []
   for (let index = 0; index < this.record.author.length; index++) {
-    if (index === 0) {
-      tooltipText.push(`Posted by ${this.record.author[index].name}`);
-    } else {
-      if (index === 1) {
-        tooltipText.push(
-          `<br> Among with ${this.record.author[index].name}`
-        );
-      } else {
-        tooltipText.push(`, ${this.record.author[index].name}`);
-      }
+    if (index === 0)
+      tooltipText.push(`Posted by ${this.record.author[index].name}`)
+    else {
+      if (index === 1)
+        tooltipText.push(`<br> Among with ${this.record.author[index].name}`)
+      else
+        tooltipText.push(`, ${this.record.author[index].name}`)
     }
   }
 
-  return tooltipText.join("");
+  return tooltipText.join('')
 }
 
 export default {
