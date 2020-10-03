@@ -14,8 +14,6 @@
         v-on="$listeners"
         :theme="theme"
       />
-
-
     </headroom>
 
     <modal :showModal="this.showSearchModal" @close="closeSearchModal">
@@ -83,7 +81,7 @@ export default {
     openNavbarModal,
     closeNavbarModal
   },
-  watch:{
+  watch: {
     $route: watchRoute
   } 
 }
