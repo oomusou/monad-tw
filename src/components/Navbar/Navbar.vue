@@ -29,12 +29,33 @@
 </template>
 
 <script>
-import NavbarDesktop from "~/components/Navbar/NavbarDesktop.vue";
-import NavbarMobile from "~/components/Navbar/NavbarMobile.vue";
-import Modal from "~/components/Modal/Modal.vue";
-import SearchModal from "~/components/Modal/SearchModal.vue";
-import NavbarModal from "~/components/Modal/NavbarMobileModal.vue";
-import { headroom } from "vue-headroom";
+import NavbarDesktop from '@/components/Navbar/NavbarDesktop'
+import NavbarMobile from '@/components/Navbar/NavbarMobile'
+import Modal from '@/components/Modal/Modal'
+import SearchModal from '@/components/Modal/SearchModal'
+import NavbarModal from '@/components/Modal/NavbarMobileModal'
+import { headroom } from 'vue-headroom'
+
+let openSearchModal = function() {
+  this.showSearchModal = true
+}
+
+let closeSearchModal = function() {
+  this.showSearchModal = false
+}
+
+let openNavbarModal = function() {
+  this.showNavbarModal = true
+}
+
+let closeNavbarModal = function() {
+  this.showNavbarModal = false
+}
+
+let watchRoute = function() {
+  this.closeNavbarModal()
+  this.closeSearchModal()
+}
 
 export default {
   props: {
@@ -42,14 +63,12 @@ export default {
       type: String
     }
   },
-  data: function() {
-    return {
-      showSearchModal: false,
-      showNavbarModal: false,
-      headerHeight: 100,
-      navbarUnpinned: false
-    };
-  },
+  data: () => ({
+    showSearchModal: false,
+    showNavbarModal: false,
+    headerHeight: 100,
+    navbarUnpinned: false
+  }),
   components: {
     NavbarDesktop,
     NavbarMobile,
@@ -59,27 +78,15 @@ export default {
     headroom
   },
   methods: {
-    openSearchModal() {
-      this.showSearchModal = true;
-    },
-    closeSearchModal() {
-      this.showSearchModal = false;
-    },
-    openNavbarModal() {
-      this.showNavbarModal = true;
-    },
-    closeNavbarModal() {
-      this.showNavbarModal = false;
-    }
-    
+    openSearchModal,
+    closeSearchModal,
+    openNavbarModal,
+    closeNavbarModal
   },
   watch:{
-    $route (to, from){
-      this.closeNavbarModal();
-      this.closeSearchModal();
-    }
+    $route: watchRoute
   } 
-};
+}
 </script>
 
 <static-query>
