@@ -80,9 +80,9 @@ query {
 </static-query>
 
 <script>
-import CardItem from '@/components/Content/CardItem.vue'
-import FeaturedCard from '@/components/Content/FeaturedCard.vue'
-import ContentHeader from '@/components/Partials/ContentHeader.vue'
+import CardItem from '@/components/Content/CardItem'
+import FeaturedCard from '@/components/Content/FeaturedCard'
+import ContentHeader from '@/components/Partials/ContentHeader'
 
 export default {
   metaInfo: {
