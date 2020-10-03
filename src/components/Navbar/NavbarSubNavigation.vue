@@ -9,16 +9,10 @@
             <div v-for="edge in $static.recent.edges" :key="edge.node.id" class="px-4">
               <g-link :to="edge.node.path">
                 <div :id="edge.node.id" class>
-                  <g-image
-                    :src="edge.node.image"
-                    :alt="edge.node.title"
-                    class="rounded-lg h-32 object-cover w-full"
-                  ></g-image>
+                  <g-image :src="edge.node.image" :alt="edge.node.title" class="rounded-lg h-32 object-cover w-full"></g-image>
 
                   <div class="post-card-content">
-                    <h3
-                      class="tracking-wider mt-3 mb-3 text-lg font-light max-w-xl"
-                    >{{ edge.node.title }}</h3>
+                    <h3 class="tracking-wider mt-3 mb-3 text-lg font-light max-w-xl">{{ edge.node.title }}</h3>
                   </div>
 
                   <div class="post-card-footer">
@@ -34,6 +28,7 @@
           </VueSlickCarousel>
         </div>
       </div>
+
       <div class="w-full mb-8">
         <h2 class="text-xl mt-2 mb-2">Tags</h2>
 
@@ -48,23 +43,22 @@
 </template>
 
 <script>
-import VueSlickCarousel from "vue-slick-carousel";
+import VueSlickCarousel from 'vue-slick-carousel'
 
 export default {
   components: {
     VueSlickCarousel
   },
-  data() {
-    return {
-      sliderSettings: {
-        dots: false,
-        arrows: false,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        initialSlide: 0,
-        responsive: [
+  data: () => ({
+    sliderSettings: {
+      dots: false,
+      arrows: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      initialSlide: 0,
+      responsive: [
           {
             breakpoint: 1024,
             settings: {
@@ -97,17 +91,12 @@ export default {
             }
           }
         ]
-      }
-    };
-  }
-};
+    }
+  })
+}
 </script>
 
-<style>
-</style>
-
 <static-query>
-
 query {
   tags: allTag {
     edges {
@@ -131,6 +120,4 @@ query {
     }
   }
 }
-
-
 </static-query>
