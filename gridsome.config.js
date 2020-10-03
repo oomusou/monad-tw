@@ -1,8 +1,4 @@
-// This is where project configuration and plugin options are located. 
-// Learn more: https://gridsome.org/docs/config
-
-// Changes here require a server restart.
-// To restart press CTRL + C in terminal and run `gridsome develop`
+let resolve = dir => require('path').join(__dirname, dir);
 
 module.exports = {
   siteName: 'Gridsome',
@@ -112,5 +108,10 @@ module.exports = {
   },
   chainWebpack: config => {
       config.resolve.alias.set('@pageImage', '@/assets/images');
+  },
+  resolve: {
+    alias: {
+      '@': resolve('src')
+    }
   }
 }
