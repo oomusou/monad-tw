@@ -1,81 +1,73 @@
 <template>
   <Layout>
-      <content-header 
-        :title="$static.metadata.siteName" 
-        :sub="$static.metadata.siteDescription"
-        image="phoenix-han-Nqdh0G8rdCc-unsplash.jpg">
-      </content-header>
-
-      <div class="container mx-auto">
-          <div class="flex flex-wrap my-4">
-
-          <FeaturedCard v-if="$page.featured.totalCount>0" :records="$page.featured.edges"/>
-
-        
-          <CardItem v-for="edge in $page.entries.edges" :key="edge.node.id" :record="edge.node" />
-        </div>
+    <content-header :title="$static.metadata.siteName" :sub="$static.metadata.siteDescription" image="phoenix-han-Nqdh0G8rdCc-unsplash.jpg"></content-header>
+    <div class="container mx-auto">
+      <div class="flex flex-wrap my-4">
+        <FeaturedCard v-if="$page.featured.totalCount>0" :records="$page.featured.edges"/>
+        <CardItem v-for="edge in $page.entries.edges" :key="edge.node.id" :record="edge.node"/>
       </div>
+    </div>
   </Layout>
 </template>
 
 <page-query>
-  query($page: Int) {
-    featured: allBlog(limit: 4, filter: { featured: { eq: true } }, sortBy:"created") {
-      totalCount
-      edges {
-        node {
+query($page: Int) {
+  featured: allBlog(limit: 4, filter: { featured: { eq: true } }, sortBy:"created") {
+    totalCount
+    edges {
+      node {
+        id
+        title
+        image(width: 800)
+        path
+        timeToRead
+        humanTime: created(format: "DD MMM YYYY")
+        datetime: created
+        category {
           id
           title
-          image(width: 800)
           path
-          timeToRead
-          humanTime: created(format: "DD MMM YYYY")
-          datetime: created
-          category {
-            id
-            title
-            path
-          }
-          author {
-            id
-            name
-            image(width: 64, height: 64, fit: inside)
-            path
-          }
         }
-      }
-    }
-    entries: allBlog(perPage: 24, page: $page, sortBy:"created") @paginate {
-      totalCount
-      pageInfo {
-        totalPages
-        currentPage
-      }
-      edges {
-        node {
+        author {
           id
-          title
-          image(width: 800)
+          name
+          image(width: 64, height: 64, fit: inside)
           path
-          timeToRead
-          featured
-          humanTime: created(format: "DD MMM YYYY")
-          datetime: created
-          category {
-            id
-            title
-            path
-          }
-          author {
-            id
-            name
-            image(width: 64, height: 64, fit: inside)
-            path
-          }
         }
       }
     }
   }
+  entries: allBlog(perPage: 24, page: $page, sortBy:"created") @paginate {
+    totalCount
+    pageInfo {
+      totalPages
+      currentPage
+    }
+    edges {
+      node {
+        id
+        title
+        image(width: 800)
+        path
+        timeToRead
+        featured
+        humanTime: created(format: "DD MMM YYYY")
+        datetime: created
+        category {
+          id
+          title
+          path
+        }
+        author {
+          id
+          name
+          image(width: 64, height: 64, fit: inside)
+          path
+        }
+      }
+    }
+  }
+}
 </page-query>
 
 <static-query>
@@ -88,19 +80,18 @@ query {
 </static-query>
 
 <script>
-import CardItem from "~/components/Content/CardItem.vue";
-import FeaturedCard from "~/components/Content/FeaturedCard.vue";
-import ContentHeader from "~/components/Partials/ContentHeader.vue";
-
+import CardItem from '@/components/Content/CardItem.vue'
+import FeaturedCard from '@/components/Content/FeaturedCard.vue'
+import ContentHeader from '@/components/Partials/ContentHeader.vue'
 
 export default {
   metaInfo: {
-    title: "Hello, world!"
+    title: 'Hello, world!'
   },
   components: {
     CardItem,
     FeaturedCard,
     ContentHeader
   }
-};
+}
 </script>
