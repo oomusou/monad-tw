@@ -109,12 +109,16 @@ export default {
     ContentHeader
   },
 
-  data() {
-    return {
-      loadedPosts: [],
-      currentPage: 1
-    };
-  },
+  // data() {
+  //   return {
+  //     loadedPosts: [],
+  //     currentPage: 1
+  //   };
+  // },
+  data: () => ({
+    loadedPosts: [],
+    currentPage: 1
+  }),
   created() {
     this.loadedPosts.push(...this.$page.entries.edges);
   },
