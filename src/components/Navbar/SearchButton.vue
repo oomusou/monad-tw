@@ -5,14 +5,13 @@
 </template>
 
 <script>
+let openSearchModal = function() {
+  this.$emit('openSearchModal')
+}
+
 export default {
   methods: {
-    openSearchModal() {
-      this.$emit("openSearchModal");
-    }
+    openSearchModal
   }
-};
+}
 </script>
-
-<style>
-</style>
