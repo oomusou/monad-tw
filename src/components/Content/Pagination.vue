@@ -17,10 +17,42 @@
       </g-link>
     </li>
   </ul>
-
 </template>
 
 <script>
+let startPage = function() {
+  if (this.currentPage === 1) return 1
+  if (this.currentPage === this.totalPages) return this.currentPage - 1
+
+  return this.currentPage - 1
+}
+
+let pages = function() {
+  let range = []
+
+  for (let i = this.startPage; i <= Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages); i += 1) {
+    range.push({ name: i, isDisabled: i === this.currentPage, link: i === 1 ? `${this.baseUrl}/` : `${this.baseUrl}/${i}` })
+  }
+
+  return range
+}
+
+let isFirstPage = function(currentPage) {
+  return currentPage === 1
+}
+
+let isLastPage = function(currentPage, totalPages) {
+  return currentPage === totalPages
+}
+
+let nextPage = function(currentPage) {
+  return `${this.baseUrl}/${currentPage + 1}`
+}
+
+let previousPage = function(currentPage) {
+  return currentPage === 2 ? `${this.baseUrl}/` : `${this.baseUrl}/${currentPage - 1}`;
+}
+
 export default {
   props: {
     baseUrl: String,
@@ -32,51 +64,15 @@ export default {
       default: 3
     }
   },
-  methods: {
-    isFirstPage(currentPage, totalPages) {
-        return currentPage == 1;
-    },
-    isLastPage(currentPage, totalPages) {
-        return currentPage == totalPages;
-    },
-    isCurrentPage(currentPage, pageElement) {
-        return currentPage == pageElement;
-    },
-    nextPage(currentPage, totalPages) {
-      return `${this.baseUrl}/${currentPage + 1}`;
-    },
-    previousPage(currentPage, totalPages) {
-      return currentPage === 2
-        ? `${this.baseUrl}/`
-        : `${this.baseUrl}/${currentPage - 1}`;
-    }
-  },
   computed: {
-    startPage() {
-      if (this.currentPage === 1) {
-        return 1;
-      }
-      if (this.currentPage === this.totalPages) {
-        return this.currentPage - 1;
-      }
-      return this.currentPage - 1;
-    },
-    pages() {
-      const range = [];
-      for (
-        let i = this.startPage;
-        i <=
-        Math.min(this.startPage + this.maxVisibleButtons - 1, this.totalPages);
-        i += 1
-      ) {
-        range.push({
-          name: i,
-          isDisabled: i === this.currentPage,
-          link: i === 1 ? `${this.baseUrl}/` : `${this.baseUrl}/${i}`
-        });
-      }
-      return range;
-    }
-  }
-};
+    startPage,
+    pages
+  },
+  methods: {
+    isFirstPage,
+    isLastPage,
+    nextPage,
+    previousPage
+  },
+}
 </script>
