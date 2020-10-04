@@ -6,14 +6,6 @@
   </div>
 </template>
 
-<static-query>
-query {
-  metadata {
-    siteName
-  }
-}
-</static-query>
-
 <script>
 import Navbar from '@/components/Navbar/Navbar'
 import VFooter from '@/components/Partials/Footer'
@@ -35,3 +27,11 @@ export default {
   }
 }
 </script>
+
+<static-query>
+query {
+  metadata {
+    siteName
+  }
+}
+</static-query>
