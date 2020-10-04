@@ -10,6 +10,23 @@
   </Layout>
 </template>
 
+<script>
+import CardItem from '@/components/Content/CardItem'
+import FeaturedCard from '@/components/Content/FeaturedCard'
+import ContentHeader from '@/components/Partials/ContentHeader'
+
+export default {
+  metaInfo: {
+    title: 'Hello, world!'
+  },
+  components: {
+    CardItem,
+    FeaturedCard,
+    ContentHeader
+  }
+}
+</script>
+
 <page-query>
 query($page: Int) {
   featured: allBlog(limit: 4, filter: { featured: { eq: true } }, sortBy:"created") {
@@ -78,20 +95,3 @@ query {
   }
 }
 </static-query>
-
-<script>
-import CardItem from '@/components/Content/CardItem'
-import FeaturedCard from '@/components/Content/FeaturedCard'
-import ContentHeader from '@/components/Partials/ContentHeader'
-
-export default {
-  metaInfo: {
-    title: 'Hello, world!'
-  },
-  components: {
-    CardItem,
-    FeaturedCard,
-    ContentHeader
-  }
-}
-</script>
