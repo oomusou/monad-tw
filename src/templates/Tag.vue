@@ -20,9 +20,7 @@ import Pagination from '@/components/Content/Pagination'
 import ContentHeader from '@/components/Partials/ContentHeader'
 
 let metaInfo = function() {
-  return {
-    title: this.$page.tag.title
-  }
+  return { title: this.$page.tag.title }
 }
 
 let postLabel = function() {
