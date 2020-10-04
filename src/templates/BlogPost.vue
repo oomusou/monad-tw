@@ -91,9 +91,7 @@ import mediumZoom from 'medium-zoom'
 import { sampleSize } from 'lodash'
 
 let metaInfo = function() {
-  return {
-    title: this.$page.blog.title
-  }
+  return { title: this.$page.blog.title }
 }
 
 let relatedRecords = function() {
