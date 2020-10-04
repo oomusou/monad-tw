@@ -41,7 +41,7 @@ let created = function() {
 
 export default {
   metaInfo: {
-    title: 'Hello, world!'
+    title: 'Hello World!'
   },
   components: {
     CardItem,
