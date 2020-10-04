@@ -6,27 +6,12 @@
     </div>
 
     <div v-if="hasImage" class="z-100 relative mt-0 h-auto">
-      <g-image
-        v-if="hasImage && staticImage"
-        :src="require(`!!assets-loader!@pageImage/${image}`)"
-        width="1400"
-        height="400"
-        class="object-cover absolute -z-10 h-full w-full"
-      ></g-image>
+      <g-image v-if="hasImage && staticImage" :src="require(`!!assets-loader!@pageImage/${image}`)" width="1400" height="400" class="object-cover absolute -z-10 h-full w-full"></g-image>
 
-      <g-image
-        v-if="hasImage && !staticImage"
-        :src="image"
-        width="1400"
-        height="400"
-        class="object-cover absolute -z-10 h-full w-full"
-      ></g-image>
+      <g-image v-if="hasImage && !staticImage" :src="image" width="1400" height="400" class="object-cover absolute -z-10 h-full w-full"></g-image>
 
       <slot>
-        <div
-          class="text-center text-white bg-gray-800 lg:py-48 md:py-32 py-24"
-          :class='`bg-opacity-${opacity}`'
-        >
+        <div class="text-center text-white bg-gray-800 lg:py-48 md:py-32 py-24" :class='`bg-opacity-${opacity}`'>
           <h2 v-if="title!=null" class="h1 font-extrabold">{{ title }}</h2>
           <p v-if="sub!=null" class="h5 font-sans">{{ sub }}</p>
         </div>
@@ -36,6 +21,10 @@
 </template>
 
 <script>
+let hasImage = function() {
+  return this.image ? true : false
+}
+
 export default {
   props: {
     title: {
@@ -60,12 +49,7 @@ export default {
     }
   },
   computed: {
-    hasImage() {
-      return this.image ? true : false;
-    }
+    hasImage
   }
-};
+}
 </script>
-
-<style>
-</style>
