@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <navigation-link>
     <content-header :title="$static.metadata.siteName" :sub="$static.metadata.siteDescription" image="phoenix-han-Nqdh0G8rdCc-unsplash.jpg"></content-header>
     <div class="container mx-auto">
       <div class="flex flex-wrap my-4">
@@ -7,10 +7,11 @@
         <CardItem v-for="edge in $page.entries.edges" :key="edge.node.id" :record="edge.node"/>
       </div>
     </div>
-  </Layout>
+  </navigation-link>
 </template>
 
 <script>
+import NavigationLink from '@/layouts/NavigationLink'
 import ContentHeader from '@/components/Partials/ContentHeader'
 import FeaturedCard from '@/components/Content/FeaturedCard'
 import CardItem from '@/components/Content/CardItem'
@@ -25,6 +26,7 @@ export default {
     title: 'Hello World!'
   },
   components: {
+    NavigationLink,
     CardItem,
     FeaturedCard,
     ContentHeader

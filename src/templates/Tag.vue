@@ -1,20 +1,19 @@
 <template>
-  <Layout>
+  <navigation-link>
     <content-header :title="$page.tag.title" :sub="subTitle"></content-header>
-
     <div class="container mx-auto">
       <div class="flex flex-wrap my-4">
         <CardItem v-for="edge in $page.tag.belongsTo.edges" :key="edge.node.id" :record="edge.node"/>
       </div>
-
       <div class="pagination flex justify-center mb-8">
         <Pagination :baseUrl="$page.tag.path" :currentPage="$page.tag.belongsTo.pageInfo.currentPage" :totalPages="$page.tag.belongsTo.pageInfo.totalPages" :maxVisibleButtons="5" v-if="$page.tag.belongsTo.pageInfo.totalPages > 1"/>
       </div>
     </div>
-  </Layout>
+  </navigation-link>
 </template>
 
 <script>
+import NavigationLink from '@/layouts/NavigationLink'
 import CardItem from '@/components/Content/CardItem'
 import Pagination from '@/components/Content/Pagination'
 import ContentHeader from '@/components/Partials/ContentHeader'
@@ -34,6 +33,7 @@ let subTitle = function() {
 
 export default {
   components: {
+    NavigationLink,
     Pagination,
     CardItem,
     ContentHeader

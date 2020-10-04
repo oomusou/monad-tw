@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <navigation-link>
     <content-header :image="$page.blog.image" :staticImage="false" :opacity="0"></content-header>
 
     <div class="container sm:pxi-0 mx-auto overflow-x-hidden text-gray-800 dark:text-gray-500">
@@ -81,10 +81,11 @@
         </div>
       </div>
     </section>
-  </Layout>
+  </navigation-link>
 </template>
 
 <script>
+import NavigationLink from '@/layouts/NavigationLink'
 import CardItem from '@/components/Content/CardItem'
 import ContentHeader from '@/components/Partials/ContentHeader'
 import mediumZoom from 'medium-zoom'
@@ -118,7 +119,8 @@ let mounted = function() {
 export default {
   components: {
     CardItem,
-    ContentHeader
+    ContentHeader,
+    NavigationLink
   },
   metaInfo,
   computed: {

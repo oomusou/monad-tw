@@ -1,20 +1,19 @@
 <template>
-  <Layout>
+  <navigation-link>
     <content-header :title="$page.category.title" :sub="subTitle"></content-header>
-
     <div class="container mx-auto">
       <div class="flex flex-wrap my-4">
         <CardItem v-for="edge in $page.category.belongsTo.edges" :key="edge.node.id" :record="edge.node"/>
       </div>
-
       <div class="pagination flex justify-center mb-8">
         <Pagination :baseUrl="$page.category.path" :currentPage="$page.category.belongsTo.pageInfo.currentPage" :totalPages="$page.category.belongsTo.pageInfo.totalPages" :maxVisibleButtons="5" v-if="$page.category.belongsTo.pageInfo.totalPages > 1"/>
       </div>
     </div>
-  </Layout>
+  </navigation-link>
 </template>
 
 <script>
+import NavigationLink from '@/layouts/NavigationLink'
 import CardItem from '@/components/Content/CardItem'
 import Pagination from '@/components/Content/Pagination'
 import ContentHeader from '@/components/Partials/ContentHeader'
@@ -36,7 +35,8 @@ export default {
   components: {
     Pagination,
     CardItem,
-    ContentHeader
+    ContentHeader,
+    NavigationLink
   },
   metaInfo,
   computed: {

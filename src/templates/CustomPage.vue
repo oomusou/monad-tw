@@ -1,7 +1,6 @@
 <template>
-  <Layout>
+  <navigation-link>
     <content-header :title="$page.page.title" :sub="$page.page.subtitle"></content-header>
-
     <div class="container sm:pxi-0 mx-auto overflow-x-hidden text-gray-800 dark:text-gray-400">
       <div class="lg:mx-32 md:mx-16 px-4 mb-8">
         <section class="post-content container mx-auto relative dark:text-gray-400">
@@ -9,10 +8,11 @@
         </section>
       </div>
     </div>
-  </Layout>
+  </navigation-link>
 </template>
 
 <script>
+import NavigationLink from '@/layouts/NavigationLink'
 import ContentHeader from '@/components/Partials/ContentHeader'
 import mediumZoom from 'medium-zoom'
 
@@ -28,6 +28,7 @@ let mounted = function() {
 
 export default {
   components: {
+    NavigationLink,
     ContentHeader
   },
   metaInfo,
