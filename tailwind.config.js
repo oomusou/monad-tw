@@ -1,7 +1,7 @@
 //tailwind border color plugin powered by
 //https://github.com/tailwindcss/tailwindcss/pull/560#issuecomment-503222143
-var _ = require('lodash')
-var flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
+let _ = require('lodash')
+let flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
 
 
 module.exports = {
@@ -60,10 +60,9 @@ module.exports = {
       '0': 0,
       '10': 10,
       '20': 20,
+      '25': 25,
       '30': 30,
       '40': 40,
-      '50': 50,
-      '25': 25,
       '50': 50,
       '75': 75,
       '100': 100,
