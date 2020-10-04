@@ -4,10 +4,7 @@
       <div class="mb-4">
         <p>
           Copyright {{ new Date().getFullYear() }} by {{ $static.metadata.siteName}} &middot; Powered by
-          <a
-            href="https://www.gridsome.org"
-            target="_blank"
-          >Gridsome</a>
+          <a href="https://www.gridsome.org" target="_blank">Gridsome</a>
         </p>
       </div>
       <div class="mb-4">
@@ -22,17 +19,8 @@
       <div class="mb-4">
         <ul class="list-reset flex justify-center">
           <li v-for="navItem in $static.metadata.footerNavigation" :key="navItem.name" class="px-4">
-            <g-link
-              :to="navItem.link"
-              :title="navItem.name"
-              v-if="navItem.external!=true"
-            >{{ navItem.name}}</g-link>
-            <a
-              :href="navItem.link"
-              target="_blank"
-              :title="navItem.name"
-              v-if="navItem.external==true"
-            >{{ navItem.name}}</a>
+            <g-link :to="navItem.link" :title="navItem.name" v-if="navItem.external!=true">{{ navItem.name}}</g-link>
+            <a :href="navItem.link" target="_blank" :title="navItem.name" v-if="navItem.external==true">{{ navItem.name}}</a>
           </li>
         </ul>
       </div>
@@ -40,32 +28,32 @@
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    icon(icon) {
-      return ['fab', icon]
-    }
-  }
-};
-</script>
-
 <static-query>
 query {
   metadata {
     siteName
-
     social {
       name
       icon
       link
     }
-  
     footerNavigation {
-        name
-        link
-        external
+      name
+      link
+      external
     }
   }
 }
 </static-query>
+
+<script>
+let icon = function(icon) {
+  return ['fab', icon]
+}
+
+export default {
+  methods: {
+    icon
+  }
+}
+</script>
