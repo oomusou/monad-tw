@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import CardItem from '@/components/Content/CardItem'
-import FeaturedCard from '@/components/Content/FeaturedCard'
 import ContentHeader from '@/components/Partials/ContentHeader'
+import FeaturedCard from '@/components/Content/FeaturedCard'
+import CardItem from '@/components/Content/CardItem'
 
 export default {
   metaInfo: {
