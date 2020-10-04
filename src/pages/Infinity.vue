@@ -16,6 +16,49 @@
   </Layout>
 </template>
 
+<script>
+import CardItem from '@/components/Content/CardItem'
+import FeaturedCard from '@/components/Content/FeaturedCard'
+import ContentHeader from '@/components/Partials/ContentHeader'
+
+let infiniteHandler = async function($state) {
+  if (this.currentPage + 1 > this.$page.entries.pageInfo.totalPages) {
+    $state.complete()
+  } else {
+    let { data } = await this.$fetch(`/infinity/${this.currentPage + 1}`)
+    if (data.entries.edges.length) {
+      this.currentPage = data.entries.pageInfo.currentPage
+      this.loadedPosts.push(...data.entries.edges)
+      $state.loaded()
+    } else
+      $state.complete()
+  }
+}
+
+let created = function() {
+  this.loadedPosts.push(...this.$page.entries.edges)
+}
+
+export default {
+  metaInfo: {
+    title: 'Hello, world!'
+  },
+  components: {
+    CardItem,
+    FeaturedCard,
+    ContentHeader
+  },
+  data: () => ({
+    loadedPosts: [],
+    currentPage: 1
+  }),
+  methods: {
+    infiniteHandler
+  },
+  created,
+}
+</script>
+
 <page-query>
 query($page: Int) {
   featured: allBlog(limit: 4, filter: { featured: { eq: true } }, sortBy:"created") {
@@ -84,49 +127,6 @@ query {
   }
 }
 </static-query>
-
-<script>
-import CardItem from '@/components/Content/CardItem'
-import FeaturedCard from '@/components/Content/FeaturedCard'
-import ContentHeader from '@/components/Partials/ContentHeader'
-
-let infiniteHandler = async function($state) {
-  if (this.currentPage + 1 > this.$page.entries.pageInfo.totalPages) {
-    $state.complete()
-  } else {
-    let { data } = await this.$fetch(`/infinity/${this.currentPage + 1}`)
-    if (data.entries.edges.length) {
-      this.currentPage = data.entries.pageInfo.currentPage
-      this.loadedPosts.push(...data.entries.edges)
-      $state.loaded()
-    } else
-      $state.complete()
-  }
-}
-
-let created = function() {
-  this.loadedPosts.push(...this.$page.entries.edges)
-}
-
-export default {
-  metaInfo: {
-    title: 'Hello, world!'
-  },
-  components: {
-    CardItem,
-    FeaturedCard,
-    ContentHeader
-  },
-  data: () => ({
-    loadedPosts: [],
-    currentPage: 1
-  }),
-  methods: {
-    infiniteHandler
-  },
-  created,
-}
-</script>
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
