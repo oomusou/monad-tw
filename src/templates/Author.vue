@@ -40,6 +40,33 @@
   </Layout>
 </template>
 
+<script>
+import CardItem from '@/components/Content/CardItem'
+import Pagination from '@/components/Content/Pagination'
+import ContentHeader from '@/components/Partials/ContentHeader'
+
+let metaInfo = function() {
+  return { title: this.$page.author.name }
+}
+
+let postLabel = function() {
+  let pluralize = require("pluralize")
+  return pluralize("post", this.$page.author.belongsTo.totalCount)
+}
+
+export default {
+  components: {
+    Pagination,
+    CardItem,
+    ContentHeader
+  },
+  metaInfo,
+  computed: {
+    postLabel
+  }
+}
+</script>
+
 <page-query>
 query($id: ID!, $page:Int) {
   author(id: $id) {
@@ -86,28 +113,3 @@ query($id: ID!, $page:Int) {
   }
 }
 </page-query>
-
-<script>
-import CardItem from "~/components/Content/CardItem.vue";
-import Pagination from "~/components/Content/Pagination.vue";
-import ContentHeader from "~/components/Partials/ContentHeader.vue";
-
-export default {
-  components: {
-    Pagination,
-    CardItem,
-    ContentHeader
-  },
-  computed: {
-    postLabel: function() {
-      var pluralize = require("pluralize");
-      return pluralize("post", this.$page.author.belongsTo.totalCount);
-    }
-  },
-  metaInfo() {
-    return {
-      title: this.$page.author.name
-    };
-  }
-};
-</script>
