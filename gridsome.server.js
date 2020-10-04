@@ -1,4 +1,4 @@
-const _ = require('lodash');
+const _ = require('lodash')
 
 module.exports = function (api) {
   api.loadSource(({
@@ -46,7 +46,7 @@ module.exports = function (api) {
           }
         }
       }
-    }`);
+    }`)
 
     data.allBlog.edges.forEach(({
       node
@@ -55,7 +55,7 @@ module.exports = function (api) {
       //without the map, you will get an 500 error
       //because the graphql filter requires an array
       //not an object
-      var tags = _.map(node.tags, function (tag) {
+      let tags = _.map(node.tags, function (tag) {
         return tag.title;
       });
 
