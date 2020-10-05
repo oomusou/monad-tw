@@ -23,18 +23,22 @@ import CardItem from '@/components/Content/CardItem'
 import FeaturedCard from '@/components/Content/FeaturedCard'
 import ContentHeader from '@/components/Partials/ContentHeader'
 
-let infiniteHandler = async function($state) {
+let infiniteHandler = function($state) {
   if (this.currentPage + 1 > this.$page.entries.pageInfo.totalPages) {
     $state.complete()
-  } else {
-    let { data } = await this.$fetch(`/infinity/${this.currentPage + 1}`)
-    if (data.entries.edges.length) {
-      this.currentPage = data.entries.pageInfo.currentPage
-      this.loadedPosts.push(...data.entries.edges)
-      $state.loaded()
-    } else
-      $state.complete()
+    return
   }
+
+  this.$fetch(`/infinity/${this.currentPage + 1}`)
+    .then(x => x.data)
+    .then(x => {
+      if (x.entries.edges.length) {
+        this.currentPage = x.entries.pageInfo.currentPage
+        this.loadedPosts.push(...x.entries.edges)
+        $state.loaded()
+      } else
+        $state.complete()
+    })
 }
 
 let created = function() {
