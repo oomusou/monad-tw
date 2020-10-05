@@ -7,7 +7,7 @@
         <CardItem v-for="{ node } of loadedPosts" :key="node.id" :record="node" />
       </transition-group>
       <ClientOnly>
-        <infinite-loading @infinite="infiniteHandler" spinner="spiral">
+        <infinite-loading @infinite="onInfinite" spinner="bubbles">
           <div slot="no-more"></div>
           <div slot="no-results"></div>
         </infinite-loading>
@@ -25,19 +25,21 @@ import CardItem from '@/components/Content/CardItem'
 import FeaturedCard from '@/components/Content/FeaturedCard'
 import ContentHeader from '@/components/Partials/ContentHeader'
 
-let infiniteHandler = function($state) {
+let onInfinite = function($state) {
   if (this.currentPage + 1 > this.$page.entries.pageInfo.totalPages) {
     $state.complete()
     return
   }
 
   let sideEffect = x => {
-    if (x.edges.length) {
-      this.currentPage = x.pageInfo.currentPage
-      this.loadedPosts.push(...x.edges)
-      $state.loaded()
-    } else
+    if (x.edges.length === 0) {
       $state.complete()
+      return
+    }
+
+    this.currentPage = x.pageInfo.currentPage
+    this.loadedPosts.push(...x.edges)
+    $state.loaded()
   }
 
   pipe(
@@ -67,7 +69,7 @@ export default {
     currentPage: 1
   }),
   methods: {
-    infiniteHandler
+    onInfinite
   },
   created,
 }
