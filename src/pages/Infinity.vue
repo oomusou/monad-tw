@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import InfiniteLoading from 'vue-infinite-loading'
 import NavigationLink from '@/layouts/NavigationLink'
 import CardItem from '@/components/Content/CardItem'
 import FeaturedCard from '@/components/Content/FeaturedCard'
@@ -45,6 +46,7 @@ export default {
     title: 'Hello World!'
   },
   components: {
+    InfiniteLoading,
     NavigationLink,
     CardItem,
     FeaturedCard,

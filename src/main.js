@@ -1,7 +1,3 @@
-// This is the main.js file. Import global CSS and scripts here.
-// The Client API can be used here. Learn more: gridsome.org/docs/client-api
-
-//import VTooltip from 'v-tooltip'
 import { VTooltip, VPopover, VClosePopover } from 'v-tooltip'
 import 'prismjs/themes/prism.css'
 import '~/assets/scss/main.scss'
@@ -12,7 +8,6 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import ClickOutside from 'v-click-outside'
-import InfiniteLoading from 'vue-infinite-loading'
 
 config.autoAddCss = false
 library.add(fas)
@@ -32,6 +27,5 @@ export default function(Vue, { router, head, isClient }) {
     Vue.directive('tooltip', VTooltip)
     Vue.directive('close-popover', VClosePopover)
     Vue.component('v-popover', VPopover)
-    Vue.use(InfiniteLoading)
   }
 }
