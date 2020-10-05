@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { pipe, andThen as then, path } from 'ramda'
+import { fetch } from 'gridsome'
 import InfiniteLoading from 'vue-infinite-loading'
 import NavigationLink from '@/layouts/NavigationLink'
 import CardItem from '@/components/Content/CardItem'
@@ -29,16 +31,20 @@ let infiniteHandler = function($state) {
     return
   }
 
-  this.$fetch(`/infinity/${this.currentPage + 1}`)
-    .then(x => x.data)
-    .then(x => {
-      if (x.entries.edges.length) {
-        this.currentPage = x.entries.pageInfo.currentPage
-        this.loadedPosts.push(...x.entries.edges)
-        $state.loaded()
-      } else
-        $state.complete()
-    })
+  let sideEffect = x => {
+    if (x.edges.length) {
+      this.currentPage = x.pageInfo.currentPage
+      this.loadedPosts.push(...x.edges)
+      $state.loaded()
+    } else
+      $state.complete()
+  }
+
+  pipe(
+    fetch,
+    then(path(['data', 'entries'])),
+    then(sideEffect)
+  )(`/infinity/${this.currentPage + 1}`)
 }
 
 let created = function() {
