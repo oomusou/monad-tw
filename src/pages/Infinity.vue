@@ -38,7 +38,7 @@ let infiniteHandler = async function($state) {
 }
 
 let created = function() {
-  this.loadedPosts.push(...this.$page.entries.edges)
+  this.loadedPosts = this.$page.entries.edges
 }
 
 export default {
