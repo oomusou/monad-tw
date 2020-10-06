@@ -1,37 +1,29 @@
 <template>
-  <div id="app" class="dark:bg-black">
-    <navbar @setTheme="setTheme" :theme="this.theme"></navbar>
-    <slot />
-    <v-footer></v-footer>
+  <div class="dark:bg-black">
+    <navbar :theme="this.theme" @setTheme="onSetTheme"></navbar>
+    <slot></slot>
+    <footer></footer>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar/Navbar'
-import VFooter from '@/components/Partials/Footer'
+import Footer from '@/components/Partials/Footer'
 
-let setTheme = function(mode) {
-  this.theme = mode
+let onSetTheme = function(theme) {
+  this.theme = theme
 }
 
 export default {
+  components: {
+    Navbar,
+    Footer
+  },
   data: () => ({
     theme: 'light'
   }),
-  components: {
-    Navbar,
-    VFooter
-  },
   methods: {
-    setTheme
+    onSetTheme
   }
 }
 </script>
-
-<static-query>
-query {
-  metadata {
-    siteName
-  }
-}
-</static-query>
