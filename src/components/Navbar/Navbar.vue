@@ -1,61 +1,48 @@
 <template>
   <div class="h-16 dark:bg-black bg-white">
     <headroom :classes="{'initial' : 'headroom bg-white dark:bg-black border-b dark:border-gray-900'}" :downTolerance="10" :upTolerance="20" :offset="15" @unpin="navbarUnpinned=true" @pin="navbarUnpinned=false">
-      <navbar-desktop v-on="$listeners" @openSearchModal="openSearchModal" :theme="theme" :hideSubnav="this.navbarUnpinned"/>
-      <navbar-mobile @openSearchModal="openSearchModal" @openNavbarModal="openNavbarModal" v-on="$listeners" :theme="theme"/>
+      <navbar-desktop v-on="$listeners" :theme="theme" :hideSubnav="this.navbarUnpinned" @openSearchModal="onOpenSearchModal"/>
+      <navbar-mobile v-on="$listeners" :theme="theme" @openSearchModal="onOpenSearchModal" @openNavbarModal="onOpenNavbarModal"/>
     </headroom>
-
-    <modal :showModal="this.showSearchModal" @close="closeSearchModal">
+    <modal :showModal="this.showSearchModal" @close="onCloseSearchModal">
       <search-modal></search-modal>
     </modal>
-
-    <modal :showModal="this.showNavbarModal" @close="closeNavbarModal">
+    <modal :showModal="this.showNavbarModal" @close="onCloseNavbarModal">
       <navbar-modal></navbar-modal>
     </modal>
   </div>
 </template>
 
 <script>
+import { headroom } from 'vue-headroom'
 import NavbarDesktop from '@/components/Navbar/NavbarDesktop'
 import NavbarMobile from '@/components/Navbar/NavbarMobile'
 import Modal from '@/components/Modal/Modal'
 import SearchModal from '@/components/Modal/SearchModal'
 import NavbarModal from '@/components/Modal/NavbarMobileModal'
-import { headroom } from 'vue-headroom'
 
-let openSearchModal = function() {
+let onOpenSearchModal = function() {
   this.showSearchModal = true
 }
 
-let closeSearchModal = function() {
+let onCloseSearchModal = function() {
   this.showSearchModal = false
 }
 
-let openNavbarModal = function() {
+let onOpenNavbarModal = function() {
   this.showNavbarModal = true
 }
 
-let closeNavbarModal = function() {
+let onCloseNavbarModal = function() {
   this.showNavbarModal = false
 }
 
-let watchRoute = function() {
-  this.closeNavbarModal()
-  this.closeSearchModal()
+let route_ = function() {
+  this.showNavbarModal = false
+  this.showSearchModal = false
 }
 
 export default {
-  props: {
-    theme : {
-      type: String
-    }
-  },
-  data: () => ({
-    showSearchModal: false,
-    showNavbarModal: false,
-    headerHeight: 100,
-    navbarUnpinned: false
-  }),
   components: {
     NavbarDesktop,
     NavbarMobile,
@@ -64,22 +51,23 @@ export default {
     NavbarModal,
     headroom
   },
+  props: [
+    'theme'
+  ],
+  data: () => ({
+    showSearchModal: false,
+    showNavbarModal: false,
+    headerHeight: 100,
+    navbarUnpinned: false
+  }),
   methods: {
-    openSearchModal,
-    closeSearchModal,
-    openNavbarModal,
-    closeNavbarModal
+    onOpenSearchModal,
+    onCloseSearchModal,
+    onOpenNavbarModal,
+    onCloseNavbarModal
   },
   watch: {
-    $route: watchRoute
+    $route: route_
   } 
 }
 </script>
-
-<static-query>
-query {
-  metadata {
-    siteName
-  }
-}
-</static-query>
