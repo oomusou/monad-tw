@@ -1,10 +1,10 @@
 <template>
   <navigation-link>
-    <content-header :title="$static.metadata.siteName" :sub="$static.metadata.siteDescription" image="phoenix-han-Nqdh0G8rdCc-unsplash.jpg"></content-header>
+    <content-header :title="title" :sub="sub" image="phoenix.jpg"></content-header>
     <div class="container mx-auto">
       <div class="flex flex-wrap my-4">
-        <FeaturedCard v-if="isShowFeaturedCard" :records="$page.featured.edges"/>
-        <CardItem v-for="edge in $page.entries.edges" :key="edge.node.id" :record="edge.node"/>
+        <featured-card v-if="isShowFeaturedCard" :records="features"/>
+        <card-item v-for="x in latests" :key="x.node.id" :record="x.node"/>
       </div>
     </div>
   </navigation-link>
@@ -21,6 +21,13 @@ let isShowFeaturedCard = function() {
   return totalCount > 0
 }
 
+let created = function() {
+  this.title = this.$static.metadata.siteName
+  this.sub = this.$static.metadata.siteDescription
+  this.features = this.$page.featured.edges
+  this.latests = this.$page.entries.edges
+}
+
 export default {
   metaInfo: {
     title: 'Hello World!'
@@ -31,9 +38,16 @@ export default {
     FeaturedCard,
     ContentHeader
   },
+  data: () => ({
+    title: '',
+    sub: '',
+    features: [],
+    latests: [],
+  }),
   computed: {
     isShowFeaturedCard
-  }
+  },
+  created
 }
 </script>
 
