@@ -2,7 +2,7 @@
   <nav class="hidden md:block lg:block xl:block flex items-center justify-between flex-wrap container mx-auto py-3 z-20 dark:text-gray-400">
     <div class="block flex-grow flex items-center w-auto mx-4">
       <div class="flex items-center flex-shrink-0 mr-6">
-        <span class="font-semibold text-xl tracking-tight">{{ siteName }}</span>
+        <span class="font-semibold text-xl tracking-tight">{{ title }}</span>
       </div>
       <div class="flex-grow">
         <ul class="list-none flex justify-left">
@@ -127,8 +127,8 @@ let route_ = function() {
   this.isShowSubNavigation = false
 }
 
-let mounted = function() {
-  this.siteName = this.$static.metadata.siteName
+let created = function() {
+  this.title = this.$static.metadata.siteName
   this.menu = this.$static.metadata.headerNavigation
 }
 
@@ -142,7 +142,7 @@ export default {
     clickOutside: vClickOutside.directive
   },
   data: () => ({
-    siteName: '',
+    title: '',
     menu: [],
     isShowSubNavigation: false,
     vcoConfig: {
@@ -169,7 +169,7 @@ export default {
     isShowSubNav: isShowSubNav_,
     $route: route_
   },
-  mounted
+  created
 }
 </script>
 
