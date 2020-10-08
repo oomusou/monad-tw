@@ -75,7 +75,7 @@ let toggleSubNavigation = function() {
 }
 
 let onClickOutside = function(event) {
-  if (!event.defaultPrevented && this.showSubNavigation === true)
+  if (!event.defaultPrevented && this.showSubNavigation)
     this.toggleSubNavigation()
 }
 
@@ -83,13 +83,13 @@ let hideSubNavigation = function() {
   this.showSubNavigation = false
 }
 
-let watchHideSubnav = function() {
-  if( this.hideSubnav ) {
+let isShowSubnav_ = function() {
+  if (!this.isShowSubnav) {
     this.hideSubNavigation()
   }
 }
 
-let watchRoute = function(){
+let route_ = function(){
   this.hideSubNavigation()
 }
 
@@ -106,22 +106,18 @@ export default {
     SearchButton,
     Subnavigation  
   },
-  props: {
-    theme: {
-      type: String
-    },
-    hideSubnav: {
-      type: Boolean
-    }
-  },
+  props: [
+    'theme',
+    'isShowSubnav'
+  ],
   methods: {
     toggleSubNavigation,
     onClickOutside,
     hideSubNavigation
   },
   watch: {
-    hideSubnav: watchHideSubnav,
-    $route: watchRoute
+    isShowSubnav: isShowSubnav_,
+    $route: route_
   },
 }
 </script>

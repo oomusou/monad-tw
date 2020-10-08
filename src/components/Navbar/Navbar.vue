@@ -1,7 +1,7 @@
 <template>
   <div class="h-16 dark:bg-black bg-white">
-    <headroom :classes="{'initial' : 'headroom bg-white dark:bg-black border-b dark:border-gray-900'}" :downTolerance="10" :upTolerance="20" :offset="15" @unpin="navbarUnpinned=true" @pin="navbarUnpinned=false">
-      <navbar-desktop v-on="$listeners" :theme="theme" :hideSubnav="this.navbarUnpinned" @openSearchModal="onOpenSearchModal"/>
+    <headroom :classes="{'initial' : 'headroom bg-white dark:bg-black border-b dark:border-gray-900'}" @unpin="navbarUnpinned=true" @pin="navbarUnpinned=false">
+      <navbar-desktop v-on="$listeners" :theme="theme" :isShowSubnav="this.isNavbarPinned" @openSearchModal="onOpenSearchModal"/>
       <navbar-mobile v-on="$listeners" :theme="theme" @openSearchModal="onOpenSearchModal" @openNavbarModal="onOpenNavbarModal"/>
     </headroom>
     <modal :showModal="this.showSearchModal" @close="onCloseSearchModal">
@@ -58,7 +58,7 @@ export default {
     showSearchModal: false,
     showNavbarModal: false,
     headerHeight: 100,
-    navbarUnpinned: false
+    isNavbarPinned: true
   }),
   methods: {
     onOpenSearchModal,
