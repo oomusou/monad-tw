@@ -30,7 +30,7 @@ let created = function() {
 
 export default {
   metaInfo: {
-    title: 'Hello World!'
+    title: 'Monad-tw'
   },
   components: {
     NavigationLink,
