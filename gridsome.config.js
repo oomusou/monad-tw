@@ -1,7 +1,7 @@
 let resolve = dir => require('path').join(__dirname, dir);
 
 module.exports = {
-  siteName: 'Gridsome',
+  siteName: 'Monad-tw',
   siteDescription: "An open-source framework to generate awesome pages",
   plugins: [
     {

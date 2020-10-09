@@ -1,17 +1,17 @@
 <template>
   <navigation-link>
-    <content-header :title="$static.metadata.siteName" :sub="$static.metadata.siteDescription" image="phoenix-han-Nqdh0G8rdCc-unsplash.jpg"></content-header>
+    <content-header :title="title" :sub="sub" image="phoenix.jpg"></content-header>
     <div class="container mx-auto">
       <transition-group name="fade" class="flex flex-wrap my-4" tag="div">
-        <FeaturedCard key="featured_post" v-if="$page.featured.totalCount>0" :records="$page.featured.edges"/>
-        <CardItem v-for="{ node } of loadedPosts" :key="node.id" :record="node" />
+        <featured-card v-if="isShowFeaturedCard" key="featured-card" :records="features"/>
+        <card-item v-for="{ node } of latests" :key="node.id" :record="node" />
       </transition-group>
-      <ClientOnly>
+      <client-only>
         <infinite-loading @infinite="onInfinite" spinner="bubbles">
           <div slot="no-more"></div>
           <div slot="no-results"></div>
         </infinite-loading>
-      </ClientOnly>
+      </client-only>
     </div>
   </navigation-link>
 </template>
@@ -24,6 +24,10 @@ import NavigationLink from '@/layouts/NavigationLink'
 import CardItem from '@/components/Content/CardItem'
 import FeaturedCard from '@/components/Content/FeaturedCard'
 import ContentHeader from '@/components/Partials/ContentHeader'
+
+let isShowFeaturedCard = function() {
+  return this.$page.featured.totalCount > 0
+}
 
 let onInfinite = function($state) {
   if (this.currentPage + 1 > this.$page.entries.pageInfo.totalPages) {
@@ -38,7 +42,7 @@ let onInfinite = function($state) {
     }
 
     this.currentPage = x.pageInfo.currentPage
-    this.loadedPosts.push(...x.edges)
+    this.latests.push(...x.edges)
     $state.loaded()
   }
 
@@ -50,12 +54,15 @@ let onInfinite = function($state) {
 }
 
 let created = function() {
-  this.loadedPosts = this.$page.entries.edges
+  this.title = this.$static.metadata.siteName
+  this.sub = this.$static.metadata.siteDescription
+  this.features = this.$page.featured.edges
+  this.latests = this.$page.entries.edges
 }
 
 export default {
   metaInfo: {
-    title: 'Hello World!'
+    title: 'Home'
   },
   components: {
     InfiniteLoading,
@@ -65,9 +72,15 @@ export default {
     ContentHeader
   },
   data: () => ({
-    loadedPosts: [],
+    title: '',
+    sub: '',
+    features: [],
+    latests: [],
     currentPage: 1
   }),
+  computed: {
+    isShowFeaturedCard
+  },
   methods: {
     onInfinite
   },

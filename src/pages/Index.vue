@@ -4,7 +4,7 @@
     <div class="container mx-auto">
       <div class="flex flex-wrap my-4">
         <featured-card v-if="isShowFeaturedCard" :records="features"/>
-        <card-item v-for="x in latests" :key="x.node.id" :record="x.node"/>
+        <card-item v-for="{ node } in latests" :key="node.id" :record="node"/>
       </div>
     </div>
   </navigation-link>
@@ -30,7 +30,7 @@ let created = function() {
 
 export default {
   metaInfo: {
-    title: 'Monad-tw'
+    title: 'Home'
   },
   components: {
     NavigationLink,
