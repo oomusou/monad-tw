@@ -2,13 +2,13 @@
   <div class="dark:bg-black">
     <navbar :theme="this.theme" @setTheme="onSetTheme"></navbar>
     <slot></slot>
-    <footer></footer>
+    <content-footer></content-footer>
   </div>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar/Navbar'
-import Footer from '@/components/Partials/Footer'
+import ContentFooter from '@/components/Partials/ContentFooter'
 
 let onSetTheme = function(theme) {
   this.theme = theme
@@ -17,7 +17,7 @@ let onSetTheme = function(theme) {
 export default {
   components: {
     Navbar,
-    Footer
+    ContentFooter
   },
   data: () => ({
     theme: 'light'
