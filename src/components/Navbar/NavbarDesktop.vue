@@ -60,7 +60,7 @@
           <li class="mr-6">
             <search-button v-on="$listeners"></search-button>
           </li>
-          
+
           <!-- toggle dark mode -->
           <li>
             <theme-switcher v-on="$listeners" :theme="theme"/>
