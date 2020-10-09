@@ -1,6 +1,6 @@
 <template>
   <div class="dark:bg-black">
-    <navbar :theme="this.theme" @setTheme="onSetTheme"></navbar>
+    <navbar :theme="theme" @setTheme="onSetTheme"></navbar>
     <slot></slot>
     <content-footer></content-footer>
   </div>

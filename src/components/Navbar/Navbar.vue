@@ -4,9 +4,12 @@
       <navbar-desktop :theme="theme" :isShowSubNav="isNavbarPinned" @openSearchModal="onOpenSearchModal" v-on="$listeners"/>
       <navbar-mobile :theme="theme" @openSearchModal="onOpenSearchModal" @openNavbarModal="onOpenNavbarModal" v-on="$listeners"/>
     </headroom>
+    <!--  show search -->
     <modal :isShowModal="isShowSearchModal" @close="onCloseSearchModal">
       <search-modal></search-modal>
     </modal>
+
+    <!-- expand hamburger-->
     <modal :isShowModal="isShowNavbarModal" @close="onCloseNavbarModal">
       <navbar-modal></navbar-modal>
     </modal>

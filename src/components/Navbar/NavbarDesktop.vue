@@ -8,6 +8,7 @@
         <ul class="list-none flex justify-left">
           <!-- menu -->
           <li v-for="navItem in menu" :key="navItem.name" class="px-4 py-1">
+
             <!-- internal link -->
             <g-link v-if="isShowInternalLink(navItem)" class="block py-1" :to="navItem.link" :title="navItem.name">
               {{ navItem.name }}
@@ -55,9 +56,12 @@
 
       <div class="inline-block">
         <ul class="list-none flex justify-center md:justify-end">
+          <!-- search -->
           <li class="mr-6">
             <search-button v-on="$listeners"></search-button>
           </li>
+          
+          <!-- toggle dark mode -->
           <li>
             <theme-switcher v-on="$listeners" :theme="theme"/>
           </li>
