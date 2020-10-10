@@ -47,7 +47,9 @@
             <a role="button" :class="showBlueText()" class="block px-4 py-1" @click.prevent="onToggleSubNavigation" aria-label="Open Subnavigation" title="Open Subnavigation">
               <font-awesome :icon="['fas', 'ellipsis-h']" size="lg"></font-awesome>
             </a>
-            <div :class="showHidden()" class="py-4 mega-menu mb-16 border-t border-gray-200 shadow-xl bg-white dark:bg-black dark:border-gray-900" v-click-outside="onClickOutside">
+
+            <!-- ... 下拉選單-->
+            <div :class="showSubNavigation()" class="py-4 mega-menu mb-16 border-t border-gray-200 shadow-xl bg-white dark:bg-black dark:border-gray-900" v-click-outside="onClickOutside">
               <sub-navigation></sub-navigation>
             </div>
           </li>
@@ -109,7 +111,7 @@ let showBlueText = function() {
   return { 'text-blue-600' : this.isShowSubNavigation }
 }
 
-let showHidden = function() {
+let showSubNavigation = function() {
   return { 'hidden' : !this.isShowSubNavigation }
 }
 
@@ -165,7 +167,7 @@ export default {
     isShowSubMenuExternalLink,
     isShowMore,
     showBlueText,
-    showHidden,
+    showSubNavigation,
     onToggleSubNavigation,
     onClickOutside,
   },
@@ -177,6 +179,7 @@ export default {
 }
 </script>
 
+<!--@formatter:off-->
 <static-query>
 query {
   metadata {
@@ -194,3 +197,4 @@ query {
   }
 }
 </static-query>
+<!--@formatter:on-->
