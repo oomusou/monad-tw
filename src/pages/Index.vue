@@ -51,6 +51,7 @@ export default {
 }
 </script>
 
+<!--@formatter:off-->
 <page-query>
 query($page: Int) {
   featured: allBlog(limit: 4, filter: { featured: { eq: true } }, sortBy:"created") {
@@ -119,3 +120,4 @@ query {
   }
 }
 </static-query>
+<!--@formatter:on-->
