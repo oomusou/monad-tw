@@ -1,12 +1,14 @@
 <template>
-  <nav class="hidden md:block lg:block xl:block flex items-center justify-between flex-wrap container mx-auto py-3 z-20 dark:text-gray-400">
-    <div class="block flex-grow flex items-center w-auto mx-4">
+  <nav class="hidden md:block flex flex-wrap justify-between items-center container mx-auto py-3 z-20 dark:text-gray-400">
+    <div class="block flex flex-grow items-center w-auto mx-4">
+      <!-- title -->
       <div class="flex items-center flex-shrink-0 mr-6">
         <span class="font-semibold text-xl tracking-tight">{{ title }}</span>
       </div>
+
+      <!-- menu -->
       <div class="flex-grow">
         <ul class="list-none flex justify-left">
-          <!-- menu -->
           <li v-for="navItem in menu" :key="navItem.name" class="px-4 py-1">
 
             <!-- internal link -->
@@ -56,6 +58,7 @@
         </ul>
       </div>
 
+      <!-- search & toggle -->
       <div class="inline-block">
         <ul class="list-none flex justify-center md:justify-end">
           <!-- search -->
