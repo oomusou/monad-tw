@@ -1,6 +1,6 @@
 <template>
-  <nav class="hidden md:block flex flex-wrap justify-between items-center container mx-auto py-3 z-20 dark:text-gray-400">
-    <div class="block flex flex-grow items-center w-auto mx-4">
+  <nav class="hidden md:block container mx-auto dark:text-gray-400 py-3 z-20">
+    <div class="flex items-center w-auto mx-4">
       <!-- title -->
       <div class="flex items-center flex-shrink-0 mr-6">
         <span class="font-semibold text-xl tracking-tight">{{ title }}</span>
