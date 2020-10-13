@@ -1,28 +1,26 @@
 <template>
-  <nav class="hidden md:block container mx-auto dark:text-gray-400 py-3 z-20">
-    <div class="flex items-center w-auto mx-4">
+  <nav class="hidden md:block container mx-auto dark:text-gray-400 py-3">
+    <div class="flex items-center mx-4">
       <!-- title -->
-      <div class="flex items-center flex-shrink-0 mr-6">
+      <div class="mr-6">
         <span class="font-semibold text-xl tracking-tight">{{ title }}</span>
       </div>
 
       <!-- menu -->
       <div class="flex-grow">
-        <ul class="list-none flex justify-left">
+        <ul class="list-none flex">
           <li v-for="navItem in menu" :key="navItem.name" class="px-4 py-1">
 
             <!-- internal link -->
-            <g-link v-if="isShowInternalLink(navItem)" class="block py-1" :to="navItem.link" :title="navItem.name">
-              {{ navItem.name }}
-            </g-link>
+            <g-link v-if="isShowInternalLink(navItem)" class="inline-block py-1" :to="navItem.link" :title="navItem.name">{{ navItem.name }}</g-link>
 
             <!-- external link -->
-            <a v-if="isShowExternalLink(navItem)" class="block" :href="navItem.link" target="_blank" :title="navItem.name">{{ navItem.name }}</a>
+            <a v-if="isShowExternalLink(navItem)" class="inline-block" :href="navItem.link" target="_blank" :title="navItem.name">{{ navItem.name }}</a>
 
             <!-- More -->
             <client-only>
               <v-popover v-if="isShowMore(navItem)" placement="top" popoverClass="navbar-popover" offset="16">
-                <a class="block py-1 cursor-pointer">{{ navItem.name }}
+                <a class="inline-block py-1 cursor-pointer">{{ navItem.name }}
                   <font-awesome :icon="['fas', 'angle-down']"></font-awesome>
                 </a>
 
@@ -31,12 +29,12 @@
                   <ul>
                     <li v-for="subItem in navItem.children" :key="subItem.name" class="px-4 py-2 submenu-item hover:text-white">
                       <!-- internal link -->
-                      <g-link v-if="isShowSubMenuInternalLink(subItem)" class="block" :to="subItem.link" :title="subItem.name">
+                      <g-link v-if="isShowSubMenuInternalLink(subItem)" class="inline-block" :to="subItem.link" :title="subItem.name">
                         {{ subItem.name }}
                       </g-link>
 
                       <!-- external link -->
-                      <a v-if="isShowSubMenuExternalLink(subItem)" class="block" :href="subItem.link" target="_blank" :title="subItem.name">{{ subItem.name }}</a>
+                      <a v-if="isShowSubMenuExternalLink(subItem)" class="inline-block" :href="subItem.link" target="_blank" :title="subItem.name">{{ subItem.name }}</a>
                     </li>
                   </ul>
                 </template>
