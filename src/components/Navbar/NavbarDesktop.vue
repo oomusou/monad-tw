@@ -3,25 +3,32 @@
     <div class="flex items-center mx-4">
       <!-- title -->
       <div class="mr-6">
-        <span class="font-semibold text-xl tracking-tight">{{ title }}</span>
+        <span class="font-semibold text-xl tracking-tight">
+          {{ title }}
+        </span>
       </div>
 
       <!-- menu -->
       <div class="flex-grow">
-        <ul class="list-none flex">
+        <ul class="flex">
           <li v-for="navItem in menu" :key="navItem.name" class="px-4 py-1">
 
             <!-- internal link -->
-            <g-link v-if="isShowInternalLink(navItem)" class="inline-block py-1" :to="navItem.link" :title="navItem.name">{{ navItem.name }}</g-link>
+            <g-link v-if="isShowInternalLink(navItem)" class="inline-block py-1" :to="navItem.link" :title="navItem.name">
+              {{ navItem.name }}
+            </g-link>
 
             <!-- external link -->
-            <a v-if="isShowExternalLink(navItem)" class="inline-block" :href="navItem.link" target="_blank" :title="navItem.name">{{ navItem.name }}</a>
+            <a v-if="isShowExternalLink(navItem)" class="inline-block py-1" :href="navItem.link" target="_blank" :title="navItem.name">
+              {{ navItem.name }}
+            </a>
 
             <!-- More -->
             <client-only>
               <v-popover v-if="isShowMore(navItem)" placement="top" popoverClass="navbar-popover" offset="16">
-                <a class="inline-block py-1 cursor-pointer">{{ navItem.name }}
-                  <font-awesome :icon="['fas', 'angle-down']"></font-awesome>
+                <a class="inline-block py-1 cursor-pointer">
+                  {{ navItem.name }}
+                  <font-awesome :icon="['fas', 'angle-down']"/>
                 </a>
 
                 <!-- More submenu -->
@@ -34,7 +41,9 @@
                       </g-link>
 
                       <!-- external link -->
-                      <a v-if="isShowSubMenuExternalLink(subItem)" class="inline-block" :href="subItem.link" target="_blank" :title="subItem.name">{{ subItem.name }}</a>
+                      <a v-if="isShowSubMenuExternalLink(subItem)" class="inline-block" :href="subItem.link" target="_blank" :title="subItem.name">
+                        {{ subItem.name }}
+                      </a>
                     </li>
                   </ul>
                 </template>
@@ -44,24 +53,24 @@
 
           <!-- ... -->
           <li class="px-4 py-1">
-            <a role="button" :class="showBlueText()" class="block px-4 py-1" @click.prevent="onToggleSubNavigation" aria-label="Open Subnavigation" title="Open Subnavigation">
-              <font-awesome :icon="['fas', 'ellipsis-h']" size="lg"></font-awesome>
+            <a role="button" :class="showBlueText" class="inline-block px-4 py-1" @click.prevent="onToggleSubNavigation" aria-label="Open Subnavigation" title="Open Subnavigation">
+              <font-awesome :icon="['fas', 'ellipsis-h']" size="lg"/>
             </a>
 
-            <!-- ... 下拉選單-->
-            <div :class="showSubNavigation()" class="py-4 mega-menu mb-16 border-t border-gray-200 shadow-xl bg-white dark:bg-black dark:border-gray-900" v-click-outside="onClickOutside">
-              <sub-navigation></sub-navigation>
+            <!-- ... sub-navigation -->
+            <div :class="showSubNavigation" class="mega-menu bg-white border-t border-gray-200 shadow-xl mb-16 py-4 dark:bg-black dark:border-gray-900" v-click-outside="onClickOutside">
+              <sub-navigation/>
             </div>
           </li>
         </ul>
       </div>
 
       <!-- search & toggle -->
-      <div class="inline-block">
-        <ul class="list-none flex justify-center md:justify-end">
+      <div>
+        <ul class="flex">
           <!-- search -->
           <li class="mr-6">
-            <search-button v-on="$listeners"></search-button>
+            <search-button v-on="$listeners"/>
           </li>
 
           <!-- toggle dark mode -->
@@ -75,7 +84,7 @@
 </template>
 
 <script>
-import { pipe, prop, path, allPass, not, __, gt } from 'ramda'
+import { pipe, prop, path, allPass, not, __, gt, equals } from 'ramda'
 import ThemeSwitcher from '@/components/Navbar/ThemeSwitcher'
 import SearchButton from '@/components/Navbar/SearchButton'
 import SubNavigation from '@/components/Navbar/NavbarSubNavigation'
@@ -84,13 +93,13 @@ import vClickOutside from 'v-click-outside'
 // isShowInternalLink :: Object -> Boolean
 let isShowInternalLink = allPass([
   pipe(prop('external'), not),
-  pipe(path(['children', 'length']), not)
+  pipe(path(['children', 'length']), equals(0))
 ])
 
 // isShowExternalLink :: Object -> Boolean
 let isShowExternalLink = allPass([
   prop('external'),
-  pipe(path(['children', 'length']), not)
+  pipe(path(['children', 'length']), equals(0))
 ])
 
 // isShowSubMenuInternalLink :: Object -> Boolean
@@ -122,7 +131,7 @@ let onToggleSubNavigation = function() {
 
 let onClickOutside = function(event) {
   if (!event.defaultPrevented && this.isShowSubNavigation)
-    this.isShowSubNavigation = !this.isShowSubNavigation
+    this.isShowSubNavigation = false
 }
 
 let isShowSubNav_ = function() {
@@ -148,6 +157,10 @@ export default {
   directives: {
     clickOutside: vClickOutside.directive
   },
+  props: {
+    theme: { default: '' },
+    isShowSubNav: { default: false }
+  },
   data: () => ({
     title: '',
     menu: [],
@@ -157,9 +170,9 @@ export default {
       isActive: true
     }
   }),
-  props: {
-    theme: { default: '' },
-    isShowSubNav: { default: false }
+  computed: {
+    showBlueText,
+    showSubNavigation,
   },
   methods: {
     isShowInternalLink,
@@ -167,8 +180,6 @@ export default {
     isShowSubMenuInternalLink,
     isShowSubMenuExternalLink,
     isShowMore,
-    showBlueText,
-    showSubNavigation,
     onToggleSubNavigation,
     onClickOutside,
   },
