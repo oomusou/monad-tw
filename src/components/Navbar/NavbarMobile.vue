@@ -1,26 +1,26 @@
 <template>
-  <nav class="block md:hidden flex items-center justify-between flex-wrap container mx-auto py-4 dark:text-gray-400">
-    <div class="block flex-grow flex items-center w-auto mx-4">
-      <div class="flex items-center flex-shrink-0 mr-6">
-        <!-- hamburger -->
+  <nav class="block md:hidden py-4 dark:text-gray-400">
+    <div class="flex items-center mx-4">
+      <!-- hamburger -->
+      <div class="flex items-center mr-6">
         <a role="button" @click.prevent="onOpenNavbarModal" aria-label="Open Navigation" title="Open Navigation">
-          <font-awesome :icon="['fas', 'bars']"></font-awesome>
+          <font-awesome :icon="['fas', 'bars']"/>
         </a>
       </div>
 
       <!-- title -->
-      <div class="flex-grow text-center font-bold text-lg">
-        <span class="font-semibold text-xl tracking-tight">{{ title }}</span>
+      <div class="flex-grow text-center text-xl font-semibold tracking-tight">
+        {{ title }}
       </div>
 
-      <div class="inline-block">
-        <ul class="list-none flex justify-center md:justify-end">
+      <div>
+        <ul class="flex">
           <!-- search -->
           <li class="mr-6">
-            <search-button v-on="$listeners"></search-button>
+            <search-button v-on="$listeners"/>
           </li>
 
-          <!-- toggle dark mode -->
+          <!-- toggle -->
           <li>
             <theme-switcher v-on="$listeners" :theme="theme"/>
           </li>
@@ -60,6 +60,7 @@ export default {
 }
 </script>
 
+<!--@formatter:off-->
 <static-query>
 query {
   metadata {
@@ -67,3 +68,4 @@ query {
   }
 }
 </static-query>
+<!--@formatter:on-->
