@@ -6,13 +6,8 @@
       "external": false
     },
     {
-      "name": "About",
-      "link": "/about-us",
-      "external": false
-    },
-    {
-      "name": "Getting started",
-      "link": "/category/getting-started",
+      "name": "Series",
+      "link": "/series",
       "external": false
     },
     {
