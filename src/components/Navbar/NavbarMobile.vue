@@ -11,12 +11,12 @@
       <div class="w-3/12 flex justify-end">
         <ul class="flex">
           <!-- toggle -->
-          <li class="mr-3">
+          <li class="mr-5">
             <theme-switcher v-on="$listeners" :theme="theme"/>
           </li>
 
           <!-- search -->
-          <li class="mr-3">
+          <li class="mr-5">
             <search-button v-on="$listeners"/>
           </li>
 
