@@ -1,14 +1,14 @@
 <template>
   <navigation-link>
     <div class="container mx-auto">
-      <transition-group name="fade" class="flex flex-wrap my-4" tag="div">
+      <transition-group class="flex flex-wrap my-4" name="fade" tag="div">
         <featured-card v-if="isShowFeaturedCard" key="featured-card" :records="features"/>
         <card-item v-for="{ node } of latests" :key="node.id" :record="node" />
       </transition-group>
       <client-only>
-        <infinite-loading @infinite="onInfinite" spinner="bubbles">
-          <div slot="no-more"></div>
-          <div slot="no-results"></div>
+        <infinite-loading spinner="bubbles" @infinite="onInfinite" >
+          <div slot="no-more"/>
+          <div slot="no-results"/>
         </infinite-loading>
       </client-only>
     </div>
@@ -85,6 +85,16 @@ export default {
 }
 </script>
 
+<!--@formatter:off-->
+<static-query>
+query {
+  metadata {
+    siteName
+    siteDescription
+  }
+}
+</static-query>
+
 <page-query>
 query($page: Int) {
   featured: allBlog(limit: 4, filter: { featured: { eq: true } }, sortBy:"created") {
@@ -144,15 +154,7 @@ query($page: Int) {
   }
 }
 </page-query>
-
-<static-query>
-query {
-  metadata {
-    siteName
-    siteDescription
-  }
-}
-</static-query>
+<!--@formatter:on-->
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
