@@ -53,7 +53,6 @@ let onInfinite = function($state) {
 
 let created = function() {
   this.title = this.$static.metadata.siteName
-  this.sub = this.$static.metadata.siteDescription
   this.features = this.$page.featured.edges
   this.latests = this.$page.entries.edges
 }
@@ -70,7 +69,6 @@ export default {
   },
   data: () => ({
     title: '',
-    sub: '',
     features: [],
     latests: [],
     currentPage: 1

@@ -6,12 +6,12 @@
     </headroom>
     <!-- search modal -->
     <modal :isShowModal="isShowSearchModal" @close="onCloseSearchModal">
-      <search-modal></search-modal>
+      <search-modal/>
     </modal>
 
     <!-- hamburger modal -->
     <modal :isShowModal="isShowNavbarModal" @close="onCloseNavbarModal">
-      <navbar-modal></navbar-modal>
+      <navbar-modal/>
     </modal>
   </div>
 </template>

@@ -1,8 +1,7 @@
 let resolve = dir => require('path').join(__dirname, dir);
 
 module.exports = {
-  siteName: 'Monad-tw',
-  siteDescription: "An open-source framework to generate awesome pages",
+  siteName: '點燈坊',
   plugins: [
     {
       use: 'gridsome-plugin-tailwindcss',

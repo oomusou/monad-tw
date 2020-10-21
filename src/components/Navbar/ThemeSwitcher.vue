@@ -1,6 +1,6 @@
 <template>
   <a role="button" @click.prevent="toggleTheme()" :aria-label="'Toggle ' + nextTheme" :title="'Toggle ' + nextTheme" class="toggle-theme">
-    <font-awesome :icon="['fas', 'sun']" v-if="theme === 'dark'"></font-awesome>
+    <font-awesome :icon="['fas', 'moon']" v-if="theme === 'dark'"></font-awesome>
     <font-awesome :icon="['fas', 'moon']" v-if="theme === 'light'"></font-awesome>
   </a>
 </template>
@@ -30,9 +30,7 @@ let mounted = function() {
 
 export default {
   props: {
-    theme: {
-      type: String,
-    },
+    theme: { default: '' }
   },
   computed: {
     nextTheme
