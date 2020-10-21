@@ -68,14 +68,14 @@
       <!-- search & toggle -->
       <div>
         <ul class="flex">
-          <!-- search -->
+          <!-- toggle dark mode -->
           <li class="mr-6">
-            <search-button v-on="$listeners"/>
+            <theme-switcher v-on="$listeners" :theme="theme"/>
           </li>
 
-          <!-- toggle dark mode -->
+          <!-- search -->
           <li>
-            <theme-switcher v-on="$listeners" :theme="theme"/>
+            <search-button v-on="$listeners"/>
           </li>
         </ul>
       </div>
