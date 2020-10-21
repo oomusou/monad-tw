@@ -1,7 +1,10 @@
 <template>
   <nav class="block md:hidden py-4 dark:text-gray-400">
     <div class="flex justify-between items-center mx-4">
-      <div class="w-3/12"/>
+      <!-- toggle -->
+      <div class="w-3/12 flex justify-start">
+        <theme-switcher v-on="$listeners" :theme="theme"/>
+      </div>
 
       <!-- title -->
       <div class="flex-grow text-center text-xl font-semibold tracking-tight">
@@ -10,14 +13,9 @@
 
       <div class="w-3/12 flex justify-end">
         <ul class="flex">
-          <!-- toggle -->
-          <li class="mr-5">
-            <theme-switcher v-on="$listeners" :theme="theme"/>
-          </li>
-
           <!-- search -->
-          <li class="mr-5">
-            <search-button v-on="$listeners"/>
+          <li class="mr-8">
+            <search-button v-on="$listeners" />
           </li>
 
           <!-- hamburger -->
