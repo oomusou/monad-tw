@@ -1,8 +1,8 @@
 <template>
   <div class="dark:bg-black">
-    <navbar :theme="theme" @setTheme="onSetTheme"></navbar>
-    <slot></slot>
-    <content-footer></content-footer>
+    <navbar :theme="theme" @setTheme="onSetTheme"/>
+    <slot/>
+    <content-footer/>
   </div>
 </template>
 
