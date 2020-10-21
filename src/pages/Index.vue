@@ -1,24 +1,54 @@
 <template>
   <navigation-link>
-    <content-header :title="title" :sub="sub" image="phoenix.jpg"></content-header>
     <div class="container mx-auto">
-      <div class="flex flex-wrap my-4">
-        <featured-card v-if="isShowFeaturedCard" :records="features"/>
-        <card-item v-for="{ node } in latests" :key="node.id" :record="node"/>
-      </div>
+      <transition-group name="fade" class="flex flex-wrap my-4" tag="div">
+        <featured-card v-if="isShowFeaturedCard" key="featured-card" :records="features"/>
+        <card-item v-for="{ node } of latests" :key="node.id" :record="node" />
+      </transition-group>
+      <client-only>
+        <infinite-loading @infinite="onInfinite" spinner="bubbles">
+          <div slot="no-more"></div>
+          <div slot="no-results"></div>
+        </infinite-loading>
+      </client-only>
     </div>
   </navigation-link>
 </template>
 
 <script>
+import { pipe, andThen as then, path } from 'ramda'
+import { fetch } from 'gridsome'
+import InfiniteLoading from 'vue-infinite-loading'
 import NavigationLink from '@/layouts/NavigationLink'
-import ContentHeader from '@/components/Partials/ContentHeader'
-import FeaturedCard from '@/components/Content/FeaturedCard'
 import CardItem from '@/components/Content/CardItem'
+import FeaturedCard from '@/components/Content/FeaturedCard'
 
 let isShowFeaturedCard = function() {
-  let { totalCount } = this.$page.featured
-  return totalCount > 0
+  return this.$page.featured.totalCount > 0
+}
+
+let onInfinite = function($state) {
+  if (this.currentPage + 1 > this.$page.entries.pageInfo.totalPages) {
+    $state.complete()
+    return
+  }
+
+  let sideEffect = x => {
+    if (x.edges.length === 0) {
+      $state.complete()
+      return
+    }
+
+    this.currentPage = x.pageInfo.currentPage
+    this.latests.push(...x.edges)
+    $state.loaded()
+  }
+
+  pipe(
+    fetch,
+    then(path(['data', 'entries'])),
+    then(sideEffect)
+  )(`/${this.currentPage + 1}`)
 }
 
 let created = function() {
@@ -33,25 +63,28 @@ export default {
     title: 'Home'
   },
   components: {
+    InfiniteLoading,
     NavigationLink,
     CardItem,
     FeaturedCard,
-    ContentHeader
   },
   data: () => ({
     title: '',
     sub: '',
     features: [],
     latests: [],
+    currentPage: 1
   }),
   computed: {
     isShowFeaturedCard
   },
-  created
+  methods: {
+    onInfinite
+  },
+  created,
 }
 </script>
 
-<!--@formatter:off-->
 <page-query>
 query($page: Int) {
   featured: allBlog(limit: 4, filter: { featured: { eq: true } }, sortBy:"created") {
@@ -79,7 +112,7 @@ query($page: Int) {
       }
     }
   }
-  entries: allBlog(perPage: 24, page: $page, sortBy:"created") @paginate {
+  entries: allBlog(perPage: 6, page: $page, sortBy:"created") @paginate {
     totalCount
     pageInfo {
       totalPages
@@ -120,4 +153,13 @@ query {
   }
 }
 </static-query>
-<!--@formatter:on-->
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: ease opacity 0.3s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+</style>
