@@ -2,13 +2,11 @@
   "headerNavigation": [
     {
       "name": "Home",
-      "link": "/",
-      "external": false
+      "link": "/"
     },
     {
       "name": "Series",
-      "link": "/series",
-      "external": false
+      "link": "/series"
     }
   ],
   "footerNavigation": [
