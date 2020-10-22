@@ -16,21 +16,8 @@
   </div>
 </template>
 
-<static-query>
-query {
-metadata {
-siteName
-headerNavigation {
-name
-link
-external
-}
-}
-}
-</static-query>
-
 <script>
-import Subnavigation from '@/components/Navbar/NavbarSubNavigation.vue'
+import Subnavigation from '@/components/Navbar/NavbarSubNavigation'
 
 export default {
   components: {
@@ -38,3 +25,17 @@ export default {
   }
 }
 </script>
+
+<!--@formatter:off-->
+<static-query>
+query {
+  metadata {
+    siteName
+    headerNavigation {
+      name
+      link
+    }
+  }
+}
+</static-query>
+<!--@formatter:on-->

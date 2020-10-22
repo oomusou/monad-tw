@@ -133,7 +133,6 @@ query {
     headerNavigation {
       name
       link
-      external
     }
   }
 }
