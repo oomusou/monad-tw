@@ -42,11 +42,6 @@ query {
       name
       link
       external
-      children {
-        name
-        link
-        external
-      }
     }
   }
 }

@@ -12,43 +12,9 @@
       <div class="flex-grow">
         <ul class="flex">
           <li v-for="navItem in menu" :key="navItem.name" class="px-4 py-1">
-
-            <!-- internal link -->
-            <g-link v-if="isShowInternalLink(navItem)" class="inline-block py-1" :to="navItem.link" :title="navItem.name">
+            <g-link class="inline-block py-1" :to="navItem.link" :title="navItem.name">
               {{ navItem.name }}
             </g-link>
-
-            <!-- external link -->
-            <a v-if="isShowExternalLink(navItem)" class="inline-block py-1" :href="navItem.link" target="_blank" :title="navItem.name">
-              {{ navItem.name }}
-            </a>
-
-            <!-- More -->
-            <client-only>
-              <v-popover v-if="isShowMore(navItem)" placement="top" popoverClass="navbar-popover" offset="16">
-                <a class="inline-block py-1 cursor-pointer">
-                  {{ navItem.name }}
-                  <font-awesome :icon="['fas', 'angle-down']"/>
-                </a>
-
-                <!-- More submenu -->
-                <template slot="popover">
-                  <ul>
-                    <li v-for="subItem in navItem.children" :key="subItem.name" class="px-4 py-2 submenu-item hover:text-white">
-                      <!-- internal link -->
-                      <g-link v-if="isShowSubMenuInternalLink(subItem)" class="inline-block" :to="subItem.link" :title="subItem.name">
-                        {{ subItem.name }}
-                      </g-link>
-
-                      <!-- external link -->
-                      <a v-if="isShowSubMenuExternalLink(subItem)" class="inline-block" :href="subItem.link" target="_blank" :title="subItem.name">
-                        {{ subItem.name }}
-                      </a>
-                    </li>
-                  </ul>
-                </template>
-              </v-popover>
-            </client-only>
           </li>
 
           <!-- ... -->
@@ -84,38 +50,11 @@
 </template>
 
 <script>
-import { pipe, prop, path, allPass, not, __, gt, equals } from 'ramda'
+import { not, pipe, prop } from 'ramda'
 import ThemeSwitcher from '@/components/Navbar/ThemeSwitcher'
 import SearchButton from '@/components/Navbar/SearchButton'
 import SubNavigation from '@/components/Navbar/NavbarSubNavigation'
 import vClickOutside from 'v-click-outside'
-
-// isShowInternalLink :: Object -> Boolean
-let isShowInternalLink = allPass([
-  pipe(prop('external'), not),
-  pipe(path(['children', 'length']), equals(0))
-])
-
-// isShowExternalLink :: Object -> Boolean
-let isShowExternalLink = allPass([
-  prop('external'),
-  pipe(path(['children', 'length']), equals(0))
-])
-
-// isShowSubMenuInternalLink :: Object -> Boolean
-let isShowSubMenuInternalLink = pipe(
-  prop('external'),
-  not
-)
-
-// isShowSubMenuExternalLink :: Object -> Boolean
-let isShowSubMenuExternalLink = prop('external')
-
-// isShowMore :: Object -> Boolean
-let isShowMore = pipe(
-  path(['children', 'length']),
-  gt(__, 0)
-)
 
 let showBlueText = function() {
   return { 'text-blue-600' : this.isShowSubNavigation }
@@ -175,11 +114,6 @@ export default {
     showSubNavigation,
   },
   methods: {
-    isShowInternalLink,
-    isShowExternalLink,
-    isShowSubMenuInternalLink,
-    isShowSubMenuExternalLink,
-    isShowMore,
     onToggleSubNavigation,
     onClickOutside,
   },
@@ -200,11 +134,6 @@ query {
       name
       link
       external
-      children {
-        name
-        link
-        external
-      }
     }
   }
 }
