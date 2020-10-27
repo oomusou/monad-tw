@@ -3,7 +3,7 @@
     <div class="flex justify-between items-center mx-4">
       <!-- toggle -->
       <div class="w-3/12 flex justify-start">
-        <theme-switcher v-on="$listeners" :theme="theme"/>
+        <theme-switcher class="py-1 px-2" v-on="$listeners" :theme="theme"/>
       </div>
 
       <!-- title -->
@@ -15,12 +15,12 @@
         <ul class="flex">
           <!-- search -->
           <li class="mr-8">
-            <search-button v-on="$listeners" />
+            <search-button class="py-1 px-2" v-on="$listeners" />
           </li>
 
           <!-- hamburger -->
-          <li class="flex items-center">
-            <a role="button" @click.prevent="onOpenNavbarModal" aria-label="Open Navigation" title="Open Navigation">
+          <li>
+            <a class="py-1 px-2" role="button" @click.prevent="onOpenNavbarModal" aria-label="Open Navigation" title="Open Navigation">
               <font-awesome :icon="['fas', 'bars']"/>
             </a>
           </li>
