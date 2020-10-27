@@ -14,7 +14,7 @@
       <div class="w-3/12 flex justify-end">
         <ul class="flex">
           <!-- search -->
-          <li class="mr-2">
+          <li class="mr-4">
             <search-button class="py-1 px-2" v-on="$listeners"/>
           </li>
 
