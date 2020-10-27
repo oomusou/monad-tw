@@ -7,6 +7,7 @@ created: 2020-10-28
 image: ./images/bg001.png
 image_caption: Photo by Josh Spires on Unsplash
 author: author1
+featured: true
 ---
 
 ## Version
