@@ -17,14 +17,14 @@
             </g-link>
           </li>
 
-          <!-- ... -->
+          <!-- Tags -->
           <li class="px-4 py-1">
             <a role="button" :class="showBlueText" class="inline-block px-4 py-1" @click.prevent="onToggleSubNavigation" aria-label="Open Subnavigation" title="Open Subnavigation">
               Tags
             </a>
 
             <!-- ... sub-navigation -->
-            <div :class="showSubNavigation" class="mega-menu bg-white border-t border-gray-200 shadow-xl mb-16 py-4 dark:bg-black dark:border-gray-900" v-click-outside="onClickOutside">
+            <div :class="showSubNavigation" class="mega-menu bg-white border-t border-gray-200 shadow-xl mb-16 py-1 dark:bg-black dark:border-gray-900" v-click-outside="onClickOutside">
               <sub-navigation/>
             </div>
           </li>
