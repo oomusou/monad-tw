@@ -4,7 +4,7 @@
       <!-- title -->
       <div class="mr-6">
         <span class="font-semibold text-xl tracking-tight">
-          {{ title }}
+          <g-link to="/">{{ title }}</g-link>
         </span>
       </div>
 
@@ -20,7 +20,7 @@
           <!-- ... -->
           <li class="px-4 py-1">
             <a role="button" :class="showBlueText" class="inline-block px-4 py-1" @click.prevent="onToggleSubNavigation" aria-label="Open Subnavigation" title="Open Subnavigation">
-              <font-awesome :icon="['fas', 'ellipsis-h']" size="lg"/>
+              Tags
             </a>
 
             <!-- ... sub-navigation -->

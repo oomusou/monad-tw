@@ -1,10 +1,6 @@
 {
   "headerNavigation": [
     {
-      "name": "Home",
-      "link": "/"
-    },
-    {
       "name": "Series",
       "link": "/series"
     }
