@@ -8,14 +8,14 @@
 
       <!-- title -->
       <div class="flex-grow text-center text-xl font-semibold tracking-tight">
-        {{ title }}
+        <g-link to="/">{{ title }}</g-link>
       </div>
 
       <div class="w-3/12 flex justify-end">
         <ul class="flex">
           <!-- search -->
           <li class="mr-8">
-            <search-button class="py-1 px-2" v-on="$listeners" />
+            <search-button class="py-1 px-2" v-on="$listeners"/>
           </li>
 
           <!-- hamburger -->
