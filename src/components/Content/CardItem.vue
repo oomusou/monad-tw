@@ -17,7 +17,7 @@
         </div>
 
         <!-- cover image -->
-        <g-image :src="record.image" :alt="record.title" class="post-card-image"></g-image>
+        <g-image :src="record.image" :alt="record.title" class="post-card-image"/>
       </g-link>
 
       <div class="post-card-content bg-white dark:bg-gray-900 h-full rounded-b-lg">
