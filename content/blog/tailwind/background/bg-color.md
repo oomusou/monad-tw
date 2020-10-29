@@ -4,7 +4,7 @@ tags: Tailwind CSS
 category: Tailwind CSS
 excerpt: 若要設定 Background Color，可使用 Tailwind 的 `bg-{color}` Utility
 created: 2020-10-28
-image: ./images/bg001.png
+image: ./images/bg000.png
 image_caption: Photo by Josh Spires on Unsplash
 author: author1
 featured: true
