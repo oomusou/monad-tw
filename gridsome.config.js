@@ -1,8 +1,10 @@
+let { pipe, split, drop, join } = require('ramda')
+
 let resolve = dir => require('path').join(__dirname, dir);
 
 module.exports = {
   siteName: '點燈坊',
-  plugins: [
+  plugins:  [
     {
       use: 'gridsome-plugin-tailwindcss',
       options: {
@@ -25,6 +27,7 @@ module.exports = {
       }
     },
     {
+      // 以 GraphQL 讀取 Markdown
       use: '@gridsome/source-filesystem',
       options: {
         typeName: 'Author',
@@ -32,6 +35,7 @@ module.exports = {
       }
     },
     {
+      // 以 GraphQL 讀取 Markdown
       use: '@gridsome/source-filesystem',
       options: {
         typeName: 'Blog',
@@ -50,6 +54,7 @@ module.exports = {
       }
     },
     {
+      // 以 GraphQL 讀取 Markdown
       use: '@gridsome/source-filesystem',
       options: {
         typeName: 'CustomPage',
@@ -86,7 +91,18 @@ module.exports = {
   },
   templates: {
     Blog: [{
-      path: '/posts/:title'
+      // path: '/posts/:title'
+      path: node => {
+        let { fileInfo: { directory, name }} = node
+
+        let path = pipe(
+          split('/'),
+          drop(2),
+          join('/')
+        )(directory)
+
+        return `/${path}/${name}`
+      }
     }],
     CustomPage: [{
       path: '/:title',
